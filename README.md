@@ -405,7 +405,7 @@ O projeto foi estruturado com separação clara de responsabilidades:
 ### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/ballers.git
+git clone https://github.com/seu-usuario/Ballers_CRUD.git
 ```
 
 ---
