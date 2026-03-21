@@ -1,73 +1,442 @@
-# React + TypeScript + Vite
+# ⚽ BALLERS — Football Squad Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web de gerenciamento de jogadores de futebol com foco em experiência de usuário moderna, inspirada em interfaces de jogos como FIFA.
 
-Currently, two official plugins are available:
+> Projeto desenvolvido com foco em UX, organização de código e praticar React + TypeScript.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Demonstração
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+📌 Em breve: deploy online +  criação de tela de Login/Register
+📌 Projeto local rodando via Vite
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🧠 Objetivo do Projeto
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+O **BALLERS** é um CRUD completo de jogadores com diferenciais de produto:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+* Interface moderna e imersiva (estilo game UI)
+* Microinterações (animações e efeitos sonoros)
+* Validação robusta de dados
+* Arquitetura modular e escalável
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 🧱 Tecnologias Utilizadas
+
+### Frontend
+
+* React
+* TypeScript
+* Vite
+* CSS
+
+### APIs
+
+* [REST Countries](https://restcountries.com)
+
+### Outros
+
+* localStorage (persistência)
+* FlagCDN (bandeiras)
+
+## 📁 Estrutura do Projeto
+
+```bash
+src/
+  assets/
+    images/
+      background.jpeg
+      hero.png
+      logo.png
+    sounds/
+      hover.wav
+      confirm.wav
+
+  components/
+    common/
+      ConfirmModal.tsx
+      Toast.tsx
+
+    player/
+      PlayerCard.tsx
+      PlayerFormModal.tsx
+      PlayersFilters.tsx
+
+  hooks/
+    usePlayers.ts
+
+  pages/
+    Players/
+      index.tsx
+
+    Auth/
+      Login.tsx
+      Register.tsx
+
+  services/
+    country/
+      countryHelpers.ts
+      getCountryCode.ts
+
+  utils/
+    getPlayerImage.ts
+    playerValidation.ts
+    sound.ts
+
+  data/
+    playersData.ts
+
+  types/
+    player.ts
+
+  App.tsx
+  main.tsx
+  styles.css
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ⚙️ Funcionalidades
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 🧩 CRUD Completo
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+* Criar jogador
+* Editar jogador
+* Excluir jogador
+* Filtros e listagem dinâmica
+
+---
+
+### 🔍 Filtros Avançados
+
+* Nome
+* Posição
+* Nacionalidade
+* Faixa etária
+
+---
+
+### 🌍 Integração com API
+
+* Busca inteligente de países
+* Suporte a PT/EN
+* Exibição de bandeiras
+
+---
+
+### 🖼️ Upload de Imagem
+
+* Upload opcional
+* Resize automático (120x120)
+* Validação de tipo e tamanho
+
+### 🔊 Sound Effects
+
+* Hover (UI feedback)
+* Confirm (ações)
+
+---
+
+### ✨ UX / UI Diferenciada
+
+* Animações suaves
+* Efeito shine nos cards
+* Toasts customizados
+* Modal de confirmação
+* Feedback visual completo
+
+---
+
+## 🎨 Design
+
+* Tema escuro com destaque roxo
+* Tipografia inspirada em interfaces esportivas
+* Layout centralizado e responsivo
+* Microinterações inspiradas em jogos
+
+## 🧠 Arquitetura
+
+O projeto foi estruturado com separação clara de responsabilidades:
+
+* **Components** → UI
+* **Hooks** → estado e lógica
+* **Utils** → regras de negócio
+* **Pages** → orquestração
+
+## 🧪 Validações
+
+* Nome obrigatório
+* Idade entre 16 e 50
+* Overall entre 0 e 99
+* País válido via API
+* Prevenção de duplicidade
+
+## 💾 Persistência
+
+* Dados salvos no `localStorage`
+* Inicialização com dataset padrão
+
+---
+
+## 🚀 Como Rodar o Projeto
+
+### 1. Clonar o repositório
+
+```bash
+git clone https://github.com/seu-usuario/ballers.git
 ```
+
+---
+
+### 2. Instalar dependências
+
+```bash
+npm install
+```
+
+---
+
+### 3. Rodar o projeto
+
+```bash
+npm run dev
+```
+
+---
+
+### 4. Acessar no navegador
+
+```bash
+http://localhost:5173/players
+```
+
+## 📈 Próximos Passos
+
+* Backend com Node.js + MongoDB
+* Autenticação de usuário
+* Formação tática (drag & drop)
+  
+---
+
+# ⚽ BALLERS — Football Squad Manager
+
+Aplicação web de gerenciamento de jogadores de futebol com foco em experiência de usuário moderna, inspirada em interfaces de jogos como FIFA.
+
+> Projeto desenvolvido com foco em UX, organização de código e praticar React + TypeScript.
+
+---
+
+## 🚀 Demonstração
+
+📌 Em breve: deploy online +  criação de tela de Login/Register
+📌 Projeto local rodando via Vite
+
+---
+
+## 🧠 Objetivo do Projeto
+
+O **BALLERS** é um CRUD completo de jogadores com diferenciais de produto:
+
+* Interface moderna e imersiva (estilo game UI)
+* Microinterações (animações e efeitos sonoros)
+* Validação robusta de dados
+* Arquitetura modular e escalável
+
+---
+
+## 🧱 Tecnologias Utilizadas
+
+### Frontend
+
+* React
+* TypeScript
+* Vite
+* CSS
+
+### APIs
+
+* [REST Countries](https://restcountries.com)
+
+### Outros
+
+* localStorage (persistência)
+* FlagCDN (bandeiras)
+
+## 📁 Estrutura do Projeto
+
+```bash
+src/
+  assets/
+    images/
+      background.jpeg
+      hero.png
+      logo.png
+    sounds/
+      hover.wav
+      confirm.wav
+
+  components/
+    common/
+      ConfirmModal.tsx
+      Toast.tsx
+
+    player/
+      PlayerCard.tsx
+      PlayerFormModal.tsx
+      PlayersFilters.tsx
+
+  hooks/
+    usePlayers.ts
+
+  pages/
+    Players/
+      index.tsx
+
+    Auth/
+      Login.tsx
+      Register.tsx
+
+  services/
+    country/
+      countryHelpers.ts
+      getCountryCode.ts
+
+  utils/
+    getPlayerImage.ts
+    playerValidation.ts
+    sound.ts
+
+  data/
+    playersData.ts
+
+  types/
+    player.ts
+
+  App.tsx
+  main.tsx
+  styles.css
+```
+
+## ⚙️ Funcionalidades
+
+### 🧩 CRUD Completo
+
+* Criar jogador
+* Editar jogador
+* Excluir jogador
+* Filtros e listagem dinâmica
+
+---
+
+### 🔍 Filtros Avançados
+
+* Nome
+* Posição
+* Nacionalidade
+* Faixa etária
+
+---
+
+### 🌍 Integração com API
+
+* Busca inteligente de países
+* Suporte a PT/EN
+* Exibição de bandeiras
+
+---
+
+### 🖼️ Upload de Imagem
+
+* Upload opcional
+* Resize automático (120x120)
+* Validação de tipo e tamanho
+
+### 🔊 Sound Effects
+
+* Hover (UI feedback)
+* Confirm (ações)
+
+---
+
+### ✨ UX / UI Diferenciada
+
+* Animações suaves
+* Efeito shine nos cards
+* Toasts customizados
+* Modal de confirmação
+* Feedback visual completo
+
+---
+
+## 🎨 Design
+
+* Tema escuro com destaque roxo
+* Tipografia inspirada em interfaces esportivas
+* Layout centralizado e responsivo
+* Microinterações inspiradas em jogos
+
+## 🧠 Arquitetura
+
+O projeto foi estruturado com separação clara de responsabilidades:
+
+* **Components** → UI
+* **Hooks** → estado e lógica
+* **Utils** → regras de negócio
+* **Pages** → orquestração
+
+## 🧪 Validações
+
+* Nome obrigatório
+* Idade entre 16 e 50
+* Overall entre 0 e 99
+* País válido via API
+* Prevenção de duplicidade
+
+## 💾 Persistência
+
+* Dados salvos no `localStorage`
+* Inicialização com dataset padrão
+
+---
+
+## 🚀 Como Rodar o Projeto
+
+### 1. Clonar o repositório
+
+```bash
+git clone https://github.com/seu-usuario/ballers.git
+```
+
+---
+
+### 2. Instalar dependências
+
+```bash
+npm install
+```
+
+---
+
+### 3. Rodar o projeto
+
+```bash
+npm run dev
+```
+
+---
+
+### 4. Acessar no navegador
+
+```bash
+http://localhost:5173/players
+```
+
+## 📈 Próximos Passos
+
+* Backend com Node.js + MongoDB
+* Autenticação de usuário
+* Formação tática (drag & drop)
+  
+---
+
