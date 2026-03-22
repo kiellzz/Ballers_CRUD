@@ -114,6 +114,7 @@ src/
 * Posição
 * Nacionalidade
 * Faixa etária
+* Overall
 
 ---
 
