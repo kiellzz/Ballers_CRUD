@@ -7,7 +7,6 @@ type PlayerCardProps = {
   onEdit: (player: Player) => void;
   onDelete: (id: string, nome: string) => void;
 
-  // 🔊 novos props
   hoverSound: string;
   confirmSound: string;
 };
