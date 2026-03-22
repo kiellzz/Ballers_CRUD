@@ -426,7 +426,7 @@ export default function Players() {
             ))
           ) : (
             <div className="no-results">
-              <p>Nenhum jogador encontrado com esses filtros.</p>
+              <p>Nenhum jogador encontrado com esses filtros</p>
             </div>
           )}
         </div>
