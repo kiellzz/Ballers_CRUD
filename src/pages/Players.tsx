@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import background from "../assets/background.jpeg";
+import resetIcon from "../assets/reset.png";
 import logo from "../assets/logo.png";
 import hoverSound from "../assets/sounds/hover.mp3";
 import confirmSound from "../assets/sounds/confirm.wav";
@@ -29,7 +30,8 @@ type ToastState = {
 };
 
 export default function Players() {
-  const { players, addPlayer, deletePlayer, updatePlayer } = usePlayers();
+  const { players, addPlayer, deletePlayer, updatePlayer, resetPlayers } =
+    usePlayers();
 
   const [open, setOpen] = useState(false);
   const [editingPlayerId, setEditingPlayerId] = useState<string | null>(null);
@@ -38,6 +40,8 @@ export default function Players() {
     id: string;
     nome: string;
   } | null>(null);
+
+  const [resetTeamModalOpen, setResetTeamModalOpen] = useState(false);
 
   const [toast, setToast] = useState<ToastState | null>(null);
 
@@ -120,6 +124,26 @@ export default function Players() {
     setPlayerToDelete(null);
   }
 
+  function openResetTeamModal() {
+    setResetTeamModalOpen(true);
+  }
+
+  function cancelResetTeam() {
+    setResetTeamModalOpen(false);
+  }
+
+  function confirmResetTeam() {
+    resetPlayers();
+    clearFilters();
+    playSound(confirmSound, 0.35);
+    showToast("Elenco restaurado para o padrão.", "success");
+    setResetTeamModalOpen(false);
+
+    if (open) {
+      closeModal();
+    }
+  }
+
   function handleImageChange(imageBase64: string) {
     setFormData((prev) => ({
       ...prev,
@@ -157,19 +181,24 @@ export default function Players() {
         return;
       }
 
+      if (resetTeamModalOpen) {
+        cancelResetTeam();
+        return;
+      }
+
       if (open) {
         closeModal();
       }
     }
 
-    if (open || playerToDelete) {
+    if (open || playerToDelete || resetTeamModalOpen) {
       window.addEventListener("keydown", handleEsc);
     }
 
     return () => {
       window.removeEventListener("keydown", handleEsc);
     };
-  }, [open, playerToDelete]);
+  }, [open, playerToDelete, resetTeamModalOpen]);
 
   useEffect(() => {
     if (!toast) return;
@@ -187,9 +216,9 @@ export default function Players() {
     const { name, value } = e.target;
     let newValue = value;
 
-     if (name === "nome") {
-    newValue = newValue.slice(0, 22);
-   }
+    if (name === "nome") {
+      newValue = newValue.slice(0, 22);
+    }
 
     if (name === "idade") {
       newValue = newValue.replace(/\D/g, "").slice(0, 2);
@@ -314,6 +343,18 @@ export default function Players() {
     ).sort((a, b) => a.localeCompare(b, "pt-BR"));
   }, [players]);
 
+  const positionOrder: Record<Position, number> = {
+      Goleiro: 1,
+      "Lateral Esquerdo": 2,
+      Zagueiro: 3,
+      "Lateral Direito": 4,
+      Volante: 5,
+      "Meio-campo": 6,
+      "Ponta Esquerda": 7,
+      Centroavante: 8,
+      "Ponta Direita": 9,
+    };
+  
  const filteredPlayers = useMemo(() => {
   const filtered = players.filter((player) => {
     const matchesName = normalizeText(player.nome).includes(
@@ -340,6 +381,23 @@ export default function Players() {
 
   const sorted = [...filtered];
 
+  sorted.sort((a, b) => {
+    const positionDiff = positionOrder[a.posicao] - positionOrder[b.posicao];
+
+    if (positionDiff !== 0) {
+      return positionDiff;
+    }
+
+    const overallDiff = b.overall - a.overall;
+
+    if (overallDiff !== 0) {
+      return overallDiff;
+    }
+
+    return a.nome.localeCompare(b.nome, "pt-BR");
+  });
+
+  // 🔄 ORDENAÇÕES DO USUÁRIO (sobrescrevem a base)
   if (filterOverall === "desc") {
     sorted.sort((a, b) => b.overall - a.overall);
   }
@@ -383,16 +441,32 @@ export default function Players() {
 
           <h1 className="header-title">Seu Elenco</h1>
 
-          <button
-            className="add-btn"
-            onMouseEnter={() => playHover(hoverSound)}
-            onClick={() => {
-              playSound(confirmSound, 0.25);
-              openCreateModal();
-            }}
-          >
-            + Adicionar jogador
-          </button>
+          <div className="header-actions">
+            <button
+              className="reset-btn"
+              onMouseEnter={() => playHover(hoverSound)}
+              onClick={() => {
+                playSound(confirmSound, 0.25);
+                openResetTeamModal();
+              }}
+            >
+            <span className="btn-icon">
+              <img src={resetIcon} alt="" className="btn-icon" />
+            </span>
+              Resetar elenco
+            </button>
+
+            <button
+              className="add-btn"
+              onMouseEnter={() => playHover(hoverSound)}
+              onClick={() => {
+                playSound(confirmSound, 0.25);
+                openCreateModal();
+              }}
+            >
+              + Adicionar jogador
+            </button>
+          </div>
         </div>
 
         <PlayersFilters
@@ -458,6 +532,16 @@ export default function Players() {
           cancelText="Cancelar"
           onConfirm={confirmDeletePlayer}
           onCancel={cancelDeletePlayer}
+        />
+
+        <ConfirmModal
+          open={resetTeamModalOpen}
+          title="Resetar elenco"
+          message="Tem certeza que deseja restaurar o elenco padrão?"
+          confirmText="Restaurar"
+          cancelText="Cancelar"
+          onConfirm={confirmResetTeam}
+          onCancel={cancelResetTeam}
         />
 
         {toast && (
