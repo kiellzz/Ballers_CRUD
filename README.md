@@ -57,7 +57,7 @@ src/
     images/
       background.jpeg
       hero.png
-      logo.png
+      logo.webp
     sounds/
       hover.wav
       confirm.wav

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import background from "../assets/background.jpeg";
 import resetIcon from "../assets/reset.png";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.webp";
 import hoverSound from "../assets/sounds/hover.mp3";
 import confirmSound from "../assets/sounds/confirm.wav";
 import PlayerCard from "../components/PlayerCard";
