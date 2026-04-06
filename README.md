@@ -1,6 +1,6 @@
 # ⚽ BALLERS — Football Squad Manager
 
-Aplicação web de gerenciamento de jogadores de futebol com foco em experiência de usuário moderna, inspirada em interfaces de jogos como FIFA.
+Aplicação web de gerenciamento de jogadores de futebol com foco em experiência de usuário moderna, inspirada em interfaces de jogos de futebol.
 
 > Projeto desenvolvido com foco em UX, organização de código e praticar React + TypeScript.
 
