@@ -6,12 +6,6 @@ Aplicação web de gerenciamento de jogadores de futebol com foco em experiênci
 
 ---
 
-## 🚀 Demonstração
-
-📌 Em breve: criação de tela de Login/Register + backend 
-
----
-
 ## 🚀 Live Demo
 
 <p align="center">
